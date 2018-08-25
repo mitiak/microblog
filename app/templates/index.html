@@ -1,7 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <h1>
-            Welcome to Microblog
-        </h1>
+    <h1>
+        Welcome to Microblog
+    </h1>
+    <hr>
+    {% if current_user.is_authenticated and form %}
+        <form action="" method="POST">
+            <!--
+                The form.hidden_tag() template argument generates 
+                a hidden field that includes a token that is used 
+                to protect the form against CSRF attacks
+            -->
+            {{ form.hidden_tag() }}
+
+            <p>
+                {{ form.post.label }}<br>
+                {{ form.post(cols=32, rows=4) }}<vr>
+                {% for error in form.post.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}  
+            </p>
+            <p>
+                {{ form.submit() }}
+            </p>
+
+
+        </form>
+        <hr>        
+    {% endif %}
+    
+    {% for post in posts %}
+        <p>
+            {% include "_post.html" %}    
+        </p>
+    {% endfor %}
+
 {% endblock %}

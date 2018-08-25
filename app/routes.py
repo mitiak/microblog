@@ -1,16 +1,32 @@
 from flask import render_template, redirect, flash, url_for, logging, request
 from app import app, db
-from app.forms import LoginForm, RegisterForm, EditProfileForm
+from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Post
 from datetime import datetime
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', title='Home')
+    form = PostForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live !')
+        return redirect(url_for('index'))
 
+    posts = []
+    if current_user.is_authenticated:
+        posts = current_user.followed_posts().all()
+    
+    return render_template('index.html', title='Home', form=form, posts=posts)
+
+@app.route('/explore')
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', title='Explore', posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
