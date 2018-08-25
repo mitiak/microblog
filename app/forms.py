@@ -29,9 +29,25 @@ class RegisterForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     username        = StringField('Username', validators=[DataRequired(), Length(min=3, max=10)])
+    email           = StringField('Email', validators=[DataRequired(), Email()])
     about_me        = TextAreaField('About Me', validators=[Length(min=0, max=256)])
     submit          = SubmitField('Save')
 
 class PostForm(FlaskForm):
     post = TextAreaField('Say Something', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
+
+class ResetPasswordRequestForm(FlaskForm):
+    email           = StringField('Email', validators=[DataRequired(), Email()])
+    submit          = SubmitField('Reset')
+
+class ResetPasswordForm(FlaskForm):
+    password        = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm', message="Passwords don't match")])
+    confirm         = PasswordField('Confirm Password')
+    submit          = SubmitField('Reset Password')
+
+
+
+
+
+    

@@ -6,6 +6,7 @@ from flask_login import LoginManager
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
+from flask_mail import Mail
 
 
 
@@ -35,6 +36,15 @@ As with other extensions, Flask-Login needs to be created
 and initialized right after the application instance
 '''
 login = LoginManager(app)
+
+
+'''
+Like most Flask extensions, you need to create an instance 
+right after the Flask application is created. In this case 
+this is an object of class Mail
+'''
+mail = Mail(app)
+
 
 
 if not app.debug:
