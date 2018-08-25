@@ -1,0 +1,11 @@
+<table>
+    <tr>
+        <td>
+            <img src="{{ post.author.avatar(32) }}" alt="">
+        </td>
+        <td>
+            <a href="{{ url_for('user', username=post.author.username) }}"><b> {{ post.author.username }} </b></a> ({{ post.timestamp }}) <br>
+            {{ post.body }} 
+        </td>
+    </tr>
+</table>

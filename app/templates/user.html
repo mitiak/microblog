@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <table>
+        <tr valign="top">
+            <td>
+                <img src="{{ user.avatar(100) }}" alt="">
+            </td>
+            
+            <td>
+                <b>{{ user.username }}</b><br>
+                {% if user == current_user %}
+                    <a href="{{ url_for('edit_profile') }}">Edit Profile</a><br>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% elif not current_user.is_following(user) %}
+                    <p><a href="{{ url_for('follow', username=user.username) }}">Follow</a></p>
+                {% else %}
+                    <p><a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a></p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <div>
+        <p>
+            Username: {{ user.username }}
+        </p>
+        <p>
+            Last seen: {{ user.last_seen }}
+        </p>
+        <p>
+            Email: {{ user.email }}
+        </p>
+        <p>
+            About Me: {{ user.about_me }}
+        </p>
+        <p>
+            {{ user.followers.count() }} followers.
+            {% for u in user.followers %}
+                <p>
+                    <a href="{{ url_for('user', username=u.username) }}"><img src="{{ u.avatar(32) }}" alt="">{{ u.username }}</a>
+                </p>
+            {% endfor %}
+        </p>
+        <p>
+            {{ user.followed.count() }} following.
+            {% for u in user.followed %}
+                <p>
+                    <a href="{{ url_for('user', username=u.username) }}"><img src="{{ u.avatar(32) }}" alt="">{{ u.username }}</a>
+                </p>
+            {% endfor %}
+        </p>
+
+    </div>
+    <hr>
+    <div>
+        {% for post in user.posts %}
+            {% include "_post.html" %}
+        {% endfor %}
+    </div>
+
+{% endblock %}
