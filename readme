@@ -1,1 +1,8 @@
-source venv/bin/activate
+# activaet venv environment
+$ source venv/bin/activate
+
+# Flask needs to be told how to import it, by setting the FLASK_APP environment variable:
+(venv) $ export FLASK_APP=microblog.py
+
+# run flask app
+(venv) $ flask run
