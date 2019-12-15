@@ -6,3 +6,13 @@ $ source venv/bin/activate
 
 # run flask app
 (venv) $ flask run
+
+# all enviroment variables are located and loaded from .flaskenv
+
+# flask db upgrade <heads|hash>
+# flask db downgrade <heads|hash>
+# flask db current
+# flask db heads
+
+# run python interpreter in app context
+$ flask shell
