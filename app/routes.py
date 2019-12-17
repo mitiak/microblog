@@ -11,7 +11,6 @@ from app.forms import LoginForm
 @app.route('/index')
 @login_required
 def index():
-    user = {'username': 'mitiak'}
     posts = [
         {
             'author': {'username': 'John'},
@@ -23,7 +22,7 @@ def index():
         }
     ]
 
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    return render_template('index.html', title='Home Page', posts=posts)
 
 
 @app.route('/login', methods=['GET', 'POST'])
