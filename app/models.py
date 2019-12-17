@@ -27,6 +27,9 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+    def __init__(self, *a, **kw):
+        pass
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
