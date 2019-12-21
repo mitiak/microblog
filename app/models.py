@@ -34,8 +34,9 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-    def __init__(self, *a, **kw):
-        pass
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
 
 
 class Post(db.Model):
