@@ -36,7 +36,6 @@ class User(UserMixin, db.Model):
         lazy='dynamic'
     )
 
-
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -46,6 +45,18 @@ class User(UserMixin, db.Model):
     def avatar(self, size=125):
         digetst = md5(self.email.lower().encode('utf-8')).hexdigest()
         return f'https://www.gravatar.com/avatar/{digetst}?d=identicon&s={size}'
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
