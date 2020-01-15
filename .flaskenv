@@ -1,6 +1,6 @@
 FLASK_APP=microblog.py
 FLASK_ENV=development
-FLASK_DEBUG=0
+FLASK_DEBUG=1
 
 # SMTP debugging server from Python
 # python -m smtpd -n -c DebuggingServer localhost:8025
