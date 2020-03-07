@@ -17,4 +17,6 @@ class Config(object):
     MAIL_USE_TLS = bool(os.environ.get('MAIL_USE_TLS'))
     ADMINS = ['your-email@example.com', 'mitiak@gmail.com']
 
+    POSTS_PER_PAGE = 3
+
 
