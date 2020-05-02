@@ -2,6 +2,7 @@ import logging
 import os
 from logging.handlers import SMTPHandler, RotatingFileHandler
 
+from elasticsearch import Elasticsearch
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -21,6 +22,8 @@ mail = Mail(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 
+app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
+    if app.config['ELASTICSEARCH_URL'] else None
 
 if not app.debug:
     # email handler

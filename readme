@@ -16,3 +16,7 @@ $ source venv/bin/activate
 
 # run python interpreter in app context
 $ flask shell
+
+# to use full-text search, run elasticsearch docker
+docker pull docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+docker run -p 9201:9200 -p 9301:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.6.2
